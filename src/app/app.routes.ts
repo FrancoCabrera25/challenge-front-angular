@@ -9,10 +9,20 @@ export const routes: Routes = [
       ),
   },
   {
-    path: 'detail/:id',
+    path: 'detail',
     loadComponent: () =>
       import('./pages/characters-detail/characters-detail.component').then(
         (m) => m.CharactersDetailComponent
       ),
+  },
+  {
+    path: '',
+    redirectTo: "list",
+    pathMatch: "full",
+  },
+  {
+    path: '**',
+    redirectTo: "list",
+    pathMatch: "full",
   },
 ];

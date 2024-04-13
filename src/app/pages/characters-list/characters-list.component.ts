@@ -28,7 +28,8 @@ export class CharactersListComponent implements OnInit {
     });
   }
 
-  navigateDetail(id: number): void {
-    this.router.navigate(['detail', id]);
+  selected(item: Characters): void {
+    this.marvelService.setCharacter(item);
+    this.router.navigate(['/detail']);
   }
 }

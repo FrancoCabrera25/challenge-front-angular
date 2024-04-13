@@ -20,7 +20,7 @@ import { HeaderComponent } from '../../shared/components/header/header.component
   styleUrl: './characters-detail.component.scss',
 })
 export class CharactersDetailComponent implements OnInit {
-  character!: Characters;
+  character!: Characters | null;
   constructor(
     private marvelService: MarvelService,
     private activatedRoute: ActivatedRoute,
@@ -28,14 +28,7 @@ export class CharactersDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.activatedRoute.params
-      .pipe(switchMap(({ id }) => this.marvelService.getCharacterById(id)))
-      .subscribe((response) => {
-        if (response) {
-          this.character = response;
-          console.log('', this.character);
-        }
-      });
+    this.character = this.marvelService.selectedCharacter;
   }
 
   back() {

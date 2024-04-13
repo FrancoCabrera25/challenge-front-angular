@@ -7,7 +7,7 @@ import {
   MarvelResponse,
   Thumbnail,
 } from '../shared/interface/marvel.interface';
-import { Observable, map } from 'rxjs';
+import { BehaviorSubject, Observable, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -20,24 +20,27 @@ export class MarvelService {
   private CHARACTERS_URL = `${this.BASE_URL}/characters`;
   private QUERY_URL = `?ts=${this.ts}&apikey=${this.API_KEY}&hash=${this.HASH}`;
 
+  private currentCharacter = new BehaviorSubject<Characters | null>(null);
+
   constructor(private http: HttpClient) {}
 
   getCharacters(): Observable<Characters[]> {
     return this.http
       .get<MarvelResponse>(`${this.CHARACTERS_URL}${this.QUERY_URL}`)
       .pipe(
-        map((response) => this.parsedCharacterResultData(response.data.results, ImageVariant.standard_small))
-      );
-  }
-
-  getCharacterById(id: number): Observable<Characters | undefined> {
-    return this.http
-      .get<MarvelResponse>(`${this.CHARACTERS_URL}/${id}${this.QUERY_URL}`)
-      .pipe(
         map((response) =>
-          this.parsedCharacterResultData(response.data.results, ImageVariant.landscape_xlarge).at(0)
+          this.parsedCharacterResultData(
+            response.data.results,
+            ImageVariant.standard_small
+          )
         )
       );
+  }
+  get selectedCharacter(): Characters | null {
+    return this.currentCharacter.value;
+  }
+  setCharacter(character: Characters): void {
+    this.currentCharacter.next(character);
   }
 
   private parsedCharacterResultData(
@@ -47,10 +50,7 @@ export class MarvelService {
     return charactersResult.map((character) => {
       return {
         ...character,
-        completedImg: this.getImage(
-          character.thumbnail,
-          variant
-        ),
+        completedImg: this.getImage(character.thumbnail, variant),
       };
     });
   }

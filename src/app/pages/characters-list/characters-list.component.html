@@ -1,7 +1,7 @@
 <app-header title="Listado de superheroes" />
   <div class="container">
     @for (item of charactersList(); track item.id) {
-      <mat-card class="card" (click)="navigateDetail(item.id)">
+      <mat-card class="card" (click)="selected(item)">
         <mat-card-content class="content">
           <img class="img" [src]="item.completedImg" alt="" />
           <h3 class="item-title">{{ item.name }}</h3>
