@@ -1,0 +1,26 @@
+@if (character) {
+<div class="container">
+  <app-header [title]="character.name" [icon]="'arrow_back'" (iconClick)="back()" />
+  <div class="container-img">
+    <img [src]="character.completedImg" alt="" />
+  </div>
+  <mat-divider />
+  <h2 class="information-title">Otra información</h2>
+  <mat-list>
+    <mat-list-item class="list-item"
+      >Cantidad de comics disponibles:{{
+        character.comics.available
+      }}</mat-list-item
+    >
+    <mat-list-item class="list-item"
+      >Cantidad de series disponibles:
+      {{ character.series.available }}</mat-list-item
+    >
+    <mat-list-item class="list-item"
+      >Cantidad de Stories disponibles:
+      {{ character.series.available }}</mat-list-item
+    >
+  </mat-list>
+</div>
+
+}

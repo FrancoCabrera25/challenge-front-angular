@@ -1,0 +1,32 @@
+
+.title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.container {
+  padding-top: 60px;
+}
+
+.card {
+ border-bottom: 2px solid gray;
+ padding: 5px;
+ cursor: pointer;
+
+}
+
+.content {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+img{
+  width: 80px;
+  height: 80px;
+  border-radius: 25%;
+}
+
+.item-title{
+  margin-left: 20px;
+}
